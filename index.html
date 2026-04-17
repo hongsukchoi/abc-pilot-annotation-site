@@ -79,8 +79,38 @@
         main {
             padding: 16px 24px 32px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 16px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 24px 32px;
+            background: var(--bg);
+        }
+        .pagination button {
+            padding: 10px 24px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .pagination button:hover:not(:disabled) {
+            background: var(--chip);
+        }
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: default;
+        }
+        .pagination .page-info {
+            font-size: 14px;
+            color: var(--muted);
+            min-width: 120px;
+            text-align: center;
         }
         .card {
             background: var(--card);
@@ -247,6 +277,11 @@ const CONFIG = {
 </div>
 
 <main id="grid"></main>
+<div class="pagination" id="pagination">
+    <button id="prev-btn">&larr; Previous</button>
+    <span class="page-info" id="page-info"></span>
+    <button id="next-btn">Next &rarr;</button>
+</div>
 
 <script>
 async function main() {
@@ -271,6 +306,12 @@ async function main() {
     const grid = document.getElementById("grid");
     const count = document.getElementById("count");
     const q = document.getElementById("q");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const pageInfo = document.getElementById("page-info");
+    const PAGE_SIZE = 4;
+    let currentPage = 0;
+    let lastFiltered = [];
 
     function fmtDuration(s) {
         if (s == null) return "—";
@@ -292,12 +333,10 @@ async function main() {
                `/releases/download/${CONFIG.releaseTag}/${filename}`;
     }
 
-    function render() {
+    function filter() {
         const needle = q.value.trim().toLowerCase();
         const dsFilter = dsSel.value;
-        grid.innerHTML = "";
-
-        const filtered = data.episodes.filter(e => {
+        lastFiltered = data.episodes.filter(e => {
             if (dsFilter && e.source_dataset !== dsFilter) return false;
             if (!needle) return true;
             const hay = [
@@ -307,17 +346,36 @@ async function main() {
             ].join(" ").toLowerCase();
             return hay.includes(needle);
         });
+        currentPage = 0;
+        renderPage();
+    }
 
-        count.textContent = `${filtered.length} / ${data.episodes.length} episodes`;
-        if (filtered.length === 0) {
+    function renderPage() {
+        grid.innerHTML = "";
+        const totalPages = Math.max(1, Math.ceil(lastFiltered.length / PAGE_SIZE));
+        if (currentPage >= totalPages) currentPage = totalPages - 1;
+
+        count.textContent = `${lastFiltered.length} / ${data.episodes.length} episodes`;
+
+        if (lastFiltered.length === 0) {
             const empty = document.createElement("div");
             empty.className = "empty";
             empty.textContent = "no episodes match the current filter.";
             grid.appendChild(empty);
+            pageInfo.textContent = "";
+            prevBtn.disabled = true;
+            nextBtn.disabled = true;
             return;
         }
 
-        for (const e of filtered) {
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage >= totalPages - 1;
+        pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+
+        const start = currentPage * PAGE_SIZE;
+        const pageEpisodes = lastFiltered.slice(start, start + PAGE_SIZE);
+
+        for (const e of pageEpisodes) {
             const card = document.createElement("div");
             card.className = "card";
 
@@ -406,9 +464,16 @@ async function main() {
         return b;
     }
 
-    q.addEventListener("input", render);
-    dsSel.addEventListener("change", render);
-    render();
+    q.addEventListener("input", filter);
+    dsSel.addEventListener("change", filter);
+    prevBtn.addEventListener("click", () => { currentPage--; renderPage(); window.scrollTo(0, 0); });
+    nextBtn.addEventListener("click", () => { currentPage++; renderPage(); window.scrollTo(0, 0); });
+    document.addEventListener("keydown", (ev) => {
+        if (ev.target.tagName === "INPUT") return;
+        if (ev.key === "ArrowLeft" && !prevBtn.disabled) { currentPage--; renderPage(); window.scrollTo(0, 0); }
+        if (ev.key === "ArrowRight" && !nextBtn.disabled) { currentPage++; renderPage(); window.scrollTo(0, 0); }
+    });
+    filter();
 }
 main().catch(err => {
     document.getElementById("grid").innerHTML =
