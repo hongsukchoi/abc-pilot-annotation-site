@@ -79,36 +79,8 @@
         main {
             padding: 16px 24px 32px;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 16px;
-        }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            padding: 16px 24px 32px;
-            background: var(--bg);
-        }
-        .pagination button {
-            padding: 8px 20px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: #fff;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .pagination button:hover:not(:disabled) {
-            background: var(--chip);
-        }
-        .pagination button:disabled {
-            opacity: 0.4;
-            cursor: default;
-        }
-        .pagination .page-info {
-            font-size: 14px;
-            color: var(--muted);
         }
         .card {
             background: var(--card);
@@ -163,25 +135,69 @@
             display: block;
             background: #111;
         }
-        .subtask-preview {
+        .subtasks {
             font-size: 12px;
-            color: var(--muted);
             background: #f6f2e7;
             border: 1px solid var(--border);
             border-radius: 4px;
             padding: 6px 8px;
         }
-        .subtask-preview summary {
-            cursor: pointer;
+        .subtasks-head {
             font-weight: 500;
             color: #4a3d1a;
+            margin-bottom: 4px;
         }
-        .subtask-preview ul {
-            margin: 6px 0 0 0;
-            padding-left: 18px;
+        .subtasks-list {
+            max-height: 220px;
+            overflow-y: auto;
+            border-top: 1px solid var(--border);
+            padding-top: 4px;
         }
-        .subtask-preview li {
-            margin: 2px 0;
+        .subtasks-list::-webkit-scrollbar { width: 8px; }
+        .subtasks-list::-webkit-scrollbar-track { background: transparent; }
+        .subtasks-list::-webkit-scrollbar-thumb {
+            background: #c6bfa8; border-radius: 4px;
+        }
+        .subtask-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            padding: 4px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            color: var(--ink);
+            line-height: 1.35;
+        }
+        .subtask-item:hover { background: #efe6cf; }
+        .subtask-item .si-idx {
+            flex: 0 0 auto;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+            font-size: 11px;
+            min-width: 28px;
+            text-align: right;
+        }
+        .subtask-item .si-time {
+            flex: 0 0 auto;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+            font-size: 11px;
+            min-width: 86px;
+            font-family: ui-monospace, monospace;
+        }
+        .subtask-item .si-label {
+            flex: 1 1 auto;
+            word-break: break-word;
+        }
+        .subtask-item.special {
+            background: rgba(243, 199, 107, 0.35);
+        }
+        .subtask-item.special:hover {
+            background: rgba(243, 199, 107, 0.55);
+        }
+        .subtask-item.special .si-label {
+            color: #6a4a00;
+            font-weight: 500;
         }
         .empty {
             grid-column: 1 / -1;
@@ -202,8 +218,8 @@
 <!-- Edit these 3 values after you create the repo + release -->
 <script>
 const CONFIG = {
-    repoOwner: "hongsukchoi",
-    repoName: "abc-pilot-annotation-site",
+    repoOwner: "OWNER",
+    repoName: "REPO",
     releaseTag: "v1",
 };
 </script>
@@ -231,11 +247,6 @@ const CONFIG = {
 </div>
 
 <main id="grid"></main>
-<div class="pagination" id="pagination">
-    <button id="prev-btn">&larr; Previous</button>
-    <span class="page-info" id="page-info"></span>
-    <button id="next-btn">Next &rarr;</button>
-</div>
 
 <script>
 async function main() {
@@ -260,18 +271,17 @@ async function main() {
     const grid = document.getElementById("grid");
     const count = document.getElementById("count");
     const q = document.getElementById("q");
-    const prevBtn = document.getElementById("prev-btn");
-    const nextBtn = document.getElementById("next-btn");
-    const pageInfo = document.getElementById("page-info");
-    const PAGE_SIZE = 9;
-    let currentPage = 0;
-    let lastFiltered = [];
 
     function fmtDuration(s) {
         if (s == null) return "—";
         const m = Math.floor(s / 60);
         const sec = Math.round(s % 60);
         return `${m}:${String(sec).padStart(2, "0")}`;
+    }
+    function fmtClock(s) {
+        const m = Math.floor(s / 60);
+        const sec = s % 60;
+        return `${m}:${sec.toFixed(1).padStart(4, "0")}`;
     }
     function fmtSize(bytes) {
         const mb = bytes / (1024 * 1024);
@@ -282,48 +292,32 @@ async function main() {
                `/releases/download/${CONFIG.releaseTag}/${filename}`;
     }
 
-    function filter() {
+    function render() {
         const needle = q.value.trim().toLowerCase();
         const dsFilter = dsSel.value;
-        lastFiltered = data.episodes.filter(e => {
+        grid.innerHTML = "";
+
+        const filtered = data.episodes.filter(e => {
             if (dsFilter && e.source_dataset !== dsFilter) return false;
             if (!needle) return true;
             const hay = [
                 e.instruction, e.task_name, e.task_folder, e.episode_id,
-                e.source_dataset, ...(e.subtask_preview || [])
+                e.source_dataset,
+                ...(e.subtasks || []).map(s => s.label),
             ].join(" ").toLowerCase();
             return hay.includes(needle);
         });
-        currentPage = 0;
-        renderPage();
-    }
 
-    function renderPage() {
-        grid.innerHTML = "";
-        const totalPages = Math.max(1, Math.ceil(lastFiltered.length / PAGE_SIZE));
-        if (currentPage >= totalPages) currentPage = totalPages - 1;
-
-        count.textContent = `${lastFiltered.length} / ${data.episodes.length} episodes`;
-
-        if (lastFiltered.length === 0) {
+        count.textContent = `${filtered.length} / ${data.episodes.length} episodes`;
+        if (filtered.length === 0) {
             const empty = document.createElement("div");
             empty.className = "empty";
             empty.textContent = "no episodes match the current filter.";
             grid.appendChild(empty);
-            pageInfo.textContent = "";
-            prevBtn.disabled = true;
-            nextBtn.disabled = true;
             return;
         }
 
-        prevBtn.disabled = currentPage === 0;
-        nextBtn.disabled = currentPage >= totalPages - 1;
-        pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
-
-        const start = currentPage * PAGE_SIZE;
-        const pageEpisodes = lastFiltered.slice(start, start + PAGE_SIZE);
-
-        for (const e of pageEpisodes) {
+        for (const e of filtered) {
             const card = document.createElement("div");
             card.className = "card";
 
@@ -358,21 +352,39 @@ async function main() {
             vwrap.appendChild(v);
             card.appendChild(vwrap);
 
-            if (e.subtask_preview && e.subtask_preview.length) {
-                const det = document.createElement("details");
-                det.className = "subtask-preview";
-                const summary = document.createElement("summary");
-                summary.textContent =
-                    `first ${Math.min(6, e.n_subtasks)} of ${e.n_subtasks} subtasks`;
-                det.appendChild(summary);
-                const ul = document.createElement("ul");
-                for (const s of e.subtask_preview) {
-                    const li = document.createElement("li");
-                    li.textContent = s;
-                    ul.appendChild(li);
-                }
-                det.appendChild(ul);
-                card.appendChild(det);
+            if (e.subtasks && e.subtasks.length) {
+                const box = document.createElement("div");
+                box.className = "subtasks";
+                const head = document.createElement("div");
+                head.className = "subtasks-head";
+                head.textContent =
+                    `subtasks (${e.subtasks.length}) — click to seek`;
+                box.appendChild(head);
+                const list = document.createElement("div");
+                list.className = "subtasks-list";
+                e.subtasks.forEach((s, i) => {
+                    const item = document.createElement("div");
+                    item.className = "subtask-item" +
+                        (s.is_special ? " special" : "");
+                    const idx = document.createElement("span");
+                    idx.className = "si-idx";
+                    idx.textContent = `${i + 1}.`;
+                    const time = document.createElement("span");
+                    time.className = "si-time";
+                    time.textContent =
+                        `${fmtClock(s.start_time)}–${fmtClock(s.end_time)}`;
+                    const label = document.createElement("span");
+                    label.className = "si-label";
+                    label.textContent = s.label;
+                    item.append(idx, time, label);
+                    item.addEventListener("click", () => {
+                        v.currentTime = s.start_time;
+                        v.play().catch(() => {});
+                    });
+                    list.appendChild(item);
+                });
+                box.appendChild(list);
+                card.appendChild(box);
             }
 
             const dl = document.createElement("a");
@@ -394,11 +406,9 @@ async function main() {
         return b;
     }
 
-    q.addEventListener("input", filter);
-    dsSel.addEventListener("change", filter);
-    prevBtn.addEventListener("click", () => { currentPage--; renderPage(); window.scrollTo(0, 0); });
-    nextBtn.addEventListener("click", () => { currentPage++; renderPage(); window.scrollTo(0, 0); });
-    filter();
+    q.addEventListener("input", render);
+    dsSel.addEventListener("change", render);
+    render();
 }
 main().catch(err => {
     document.getElementById("grid").innerHTML =
