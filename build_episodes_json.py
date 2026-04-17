@@ -61,6 +61,16 @@ def main() -> None:
         duration_s = ffprobe_duration(mp4_path)
         mp4_size = mp4_path.stat().st_size
 
+        subtask_list = []
+        for s in segs:
+            label = str(s.get("label", ""))
+            subtask_list.append({
+                "label": label,
+                "start_time": s.get("start_time_ns", 0) / 1e9,
+                "end_time": s.get("end_time_ns", 0) / 1e9,
+                "is_special": label.lower().startswith("special="),
+            })
+
         entries.append({
             "episode_id": ep_id,
             "task_folder": info["task_folder"],
@@ -71,10 +81,8 @@ def main() -> None:
             "mp4_size_bytes": mp4_size,
             "duration_seconds": duration_s,
             "n_subtasks": len(segs),
-            "n_special_subtasks": sum(
-                1 for s in segs if str(s.get("label", "")).lower().startswith("special=")
-            ),
-            "subtask_preview": [s["label"] for s in segs[:6]],
+            "n_special_subtasks": sum(1 for s in subtask_list if s["is_special"]),
+            "subtasks": subtask_list,
         })
 
     out = {
