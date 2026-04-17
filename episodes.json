@@ -1,0 +1,629 @@
+{
+  "generated_from": {
+    "bundle_root": "pilot_data",
+    "render_root": "pilot_renders"
+  },
+  "n_episodes": 31,
+  "episodes": [
+    {
+      "episode_id": "episode_019ce8ef-c690-7e9e-80de-67686b7aa023",
+      "task_folder": "fold_a_paper_plane_with_a_square_sheet_of_paper_pick_it_up_from_the_middle",
+      "task_name": "fold_a_paper_plane_with_a_square_sheet_of_paper_(pick_it_up_from_the_middle)",
+      "instruction": "fold a paper plane with a square sheet of paper (pick it up from the middle)",
+      "source_dataset": "perf_realsense_20260407",
+      "mp4_filename": "episode_019ce8ef-c690-7e9e-80de-67686b7aa023.mp4",
+      "mp4_size_bytes": 26368794,
+      "duration_seconds": 177.166667,
+      "n_subtasks": 17,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019ce8fc-8448-7e32-bc85-5b9218affb11",
+      "task_folder": "fold_a_paper_plane_with_a_square_sheet_of_paper_pick_it_up_from_the_middle",
+      "task_name": "fold_a_paper_plane_with_a_square_sheet_of_paper_(pick_it_up_from_the_middle)",
+      "instruction": "fold a paper plane with a square sheet of paper (pick it up from the middle)",
+      "source_dataset": "perf_realsense_20260407",
+      "mp4_filename": "episode_019ce8fc-8448-7e32-bc85-5b9218affb11.mp4",
+      "mp4_size_bytes": 23227454,
+      "duration_seconds": 142.9,
+      "n_subtasks": 15,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d2648-b380-7d68-979c-d808bf0f77d0",
+      "task_folder": "fold_a_paper_plane_with_a_square_sheet_of_paper_fold_left_side_to_right_side",
+      "task_name": "fold_a_paper_plane_with_a_square_sheet_of_paper_(fold_left_side_to_right_side)",
+      "instruction": "fold a paper plane with a square sheet of paper (fold left side to right side)",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d2648-b380-7d68-979c-d808bf0f77d0.mp4",
+      "mp4_size_bytes": 33711329,
+      "duration_seconds": 197.633333,
+      "n_subtasks": 11,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=move | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=both arms | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=turn over | Object=paper | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d267c-9c90-711f-a5e1-4b176b8d96f6",
+      "task_folder": "fold_a_paper_plane_with_a_square_sheet_of_paper_fold_left_side_to_right_side",
+      "task_name": "fold_a_paper_plane_with_a_square_sheet_of_paper_(fold_left_side_to_right_side)",
+      "instruction": "fold a paper plane with a square sheet of paper (fold left side to right side)",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d267c-9c90-711f-a5e1-4b176b8d96f6.mp4",
+      "mp4_size_bytes": 33860502,
+      "duration_seconds": 194.8,
+      "n_subtasks": 11,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=move | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=hold | Object=paper | Location=center of the table",
+        "Arm=left arm | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=both arms | Skill=fold | Object=paper | Location=center of the table",
+        "Arm=right arm | Skill=turn over | Object=paper | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d2690-f780-760d-ada7-746d8266e60a",
+      "task_folder": "put_the_plastic_bottles_in_the_bin",
+      "task_name": "put_the_plastic_bottles_in_the_bin",
+      "instruction": "put the plastic bottles in the bin",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d2690-f780-760d-ada7-746d8266e60a.mp4",
+      "mp4_size_bytes": 16145187,
+      "duration_seconds": 66.933333,
+      "n_subtasks": 20,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=right arm | Skill=place | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=bottom-center of the table",
+        "Arm=right arm | Skill=place | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=adjust | Object=plastic bottle | Location=bottom-left of the table",
+        "Arm=right arm | Skill=pick up | Object=plastic bottle | Location=bottom-left of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d26a1-e770-77ad-af4e-6bd375ed6337",
+      "task_folder": "put_the_plastic_bottles_in_the_bin",
+      "task_name": "put_the_plastic_bottles_in_the_bin",
+      "instruction": "put the plastic bottles in the bin",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d26a1-e770-77ad-af4e-6bd375ed6337.mp4",
+      "mp4_size_bytes": 15265570,
+      "duration_seconds": 68.1,
+      "n_subtasks": 26,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=middle-left of the table",
+        "Arm=left arm | Skill=place | Object=plastic bottle | Location=trash bin",
+        "Arm=right arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=right arm | Skill=place | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=left arm | Skill=place | Object=plastic bottle | Location=trash bin"
+      ]
+    },
+    {
+      "episode_id": "episode_019d42ba-35e8-7251-8ba6-add43152ca7f",
+      "task_folder": "throw_plastic_bottles_in_bin",
+      "task_name": "throw_plastic_bottles_in_bin",
+      "instruction": "throw plastic bottles in bin",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d42ba-35e8-7251-8ba6-add43152ca7f.mp4",
+      "mp4_size_bytes": 9958724,
+      "duration_seconds": 42.933333,
+      "n_subtasks": 17,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=left arm | Skill=throw | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=left arm | Skill=throw | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=left arm | Skill=throw | Object=plastic bottle | Location=trash bin"
+      ]
+    },
+    {
+      "episode_id": "episode_019d42bb-d3f8-7f83-9648-2b0fd529c5e1",
+      "task_folder": "throw_plastic_bottles_in_bin",
+      "task_name": "throw_plastic_bottles_in_bin",
+      "instruction": "throw plastic bottles in bin",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d42bb-d3f8-7f83-9648-2b0fd529c5e1.mp4",
+      "mp4_size_bytes": 9712676,
+      "duration_seconds": 44.066667,
+      "n_subtasks": 19,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Arm=right arm | Skill=throw | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table",
+        "Special=mistake",
+        "Arm=left arm | Skill=place | Object=plastic bottle | Location=trash bin",
+        "Arm=left arm | Skill=pick up | Object=plastic bottle | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d469a-7970-7aad-983d-989d2e221b2d",
+      "task_folder": "wrap_the_gift_box_in_paper",
+      "task_name": "wrap_the_gift_box_in_paper",
+      "instruction": "wrap the gift box in paper",
+      "source_dataset": "pretrain_20260407_v2",
+      "mp4_filename": "episode_019d469a-7970-7aad-983d-989d2e221b2d.mp4",
+      "mp4_size_bytes": 41389211,
+      "duration_seconds": 167.333333,
+      "n_subtasks": 27,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=wrapping paper | Location=center of the table",
+        "Arm=both arms | Skill=move | Object=wrapping paper | Location=center of the table",
+        "Arm=right arm | Skill=adjust | Object=gift box | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=gift box | Location=center of the table",
+        "Arm=left arm | Skill=place | Object=gift box | Location=wrapping paper",
+        "Arm=right arm | Skill=adjust | Object=gift box | Location=wrapping paper"
+      ]
+    },
+    {
+      "episode_id": "episode_019d469d-a9d8-7d3d-b119-2fc356fc55f8",
+      "task_folder": "wrap_the_gift_box_in_paper",
+      "task_name": "wrap_the_gift_box_in_paper",
+      "instruction": "wrap the gift box in paper",
+      "source_dataset": "pretrain_20260407_v2",
+      "mp4_filename": "episode_019d469d-a9d8-7d3d-b119-2fc356fc55f8.mp4",
+      "mp4_size_bytes": 37570764,
+      "duration_seconds": 148.1,
+      "n_subtasks": 30,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=both arms | Skill=smooth out | Object=wrapping paper | Location=center of the table",
+        "Arm=both arms | Skill=adjust | Object=gift box | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=gift box | Location=center of the table",
+        "Arm=left arm | Skill=place | Object=gift box | Location=wrapping paper",
+        "Arm=both arms | Skill=adjust | Object=gift box | Location=wrapping paper",
+        "Arm=both arms | Skill=fold | Object=wrapping paper | Location=gift box"
+      ]
+    },
+    {
+      "episode_id": "episode_019d4ed6-b860-71e9-95e1-bf765cedca61",
+      "task_folder": "packing_takeout_coffee",
+      "task_name": "packing_takeout_coffee",
+      "instruction": "packing takeout coffee",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d4ed6-b860-71e9-95e1-bf765cedca61.mp4",
+      "mp4_size_bytes": 20045457,
+      "duration_seconds": 139.366667,
+      "n_subtasks": 24,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=coffee cup | Location=coffee cup",
+        "Arm=right arm | Skill=place | Object=coffee cup | Location=center of the table",
+        "Arm=right arm | Skill=pick up | Object=lid | Location=lid",
+        "Arm=right arm | Skill=place | Object=lid | Location=center of the table",
+        "Arm=right arm | Skill=pick up | Object=lid | Location=center of the table",
+        "Arm=right arm | Skill=close | Object=lid | Location=coffee cup"
+      ]
+    },
+    {
+      "episode_id": "episode_019d4ed9-5840-79be-a057-70cd6a33c6fd",
+      "task_folder": "packing_takeout_coffee",
+      "task_name": "packing_takeout_coffee",
+      "instruction": "packing takeout coffee",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d4ed9-5840-79be-a057-70cd6a33c6fd.mp4",
+      "mp4_size_bytes": 25316231,
+      "duration_seconds": 141.266667,
+      "n_subtasks": 27,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=takeout bag | Location=top-right of the table",
+        "Arm=right arm | Skill=pick up | Object=coffee cup | Location=coffee cup",
+        "Arm=right arm | Skill=place | Object=coffee cup | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=lid | Location=lid",
+        "Arm=both arms | Skill=close | Object=lid | Location=coffee cup",
+        "Arm=right arm | Skill=pick up | Object=coffee cup | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d4f03-98a8-7ce6-96f1-b7301e0c747d",
+      "task_folder": "sort_the_legos_into_containers_by_color",
+      "task_name": "sort_the_legos_into_containers_by_color",
+      "instruction": "sort the legos into containers by color",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d4f03-98a8-7ce6-96f1-b7301e0c747d.mp4",
+      "mp4_size_bytes": 18092560,
+      "duration_seconds": 85.266667,
+      "n_subtasks": 41,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=container | Location=top-center of the table",
+        "Arm=right arm | Skill=move | Object=multiple containers | Location=top-center of the table",
+        "Arm=left arm | Skill=move | Object=container | Location=top-center of the table",
+        "Arm=right arm | Skill=move | Object=multiple containers | Location=top-center of the table",
+        "Arm=left arm | Skill=pick up | Object=lego | Location=bottom-center of the table",
+        "Arm=left arm | Skill=place | Object=lego | Location=container"
+      ]
+    },
+    {
+      "episode_id": "episode_019d4f06-d8b0-71af-a34e-543e6b0b70e8",
+      "task_folder": "sort_the_legos_into_containers_by_color",
+      "task_name": "sort_the_legos_into_containers_by_color",
+      "instruction": "sort the legos into containers by color",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d4f06-d8b0-71af-a34e-543e6b0b70e8.mp4",
+      "mp4_size_bytes": 15861895,
+      "duration_seconds": 77.733333,
+      "n_subtasks": 42,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=multiple containers | Location=top-center of the table",
+        "Arm=left arm | Skill=move | Object=container | Location=top-center of the table",
+        "Arm=right arm | Skill=pick up | Object=lego | Location=center of the table",
+        "Arm=right arm | Skill=place | Object=lego | Location=container",
+        "Arm=right arm | Skill=pick up | Object=lego | Location=center of the table",
+        "Arm=right arm | Skill=place | Object=lego | Location=container"
+      ]
+    },
+    {
+      "episode_id": "episode_019d505e-65e8-7f99-a4e0-9ef7c1215ffc",
+      "task_folder": "fold_and_stack_the_t_shirts",
+      "task_name": "fold_and_stack_the_t-shirts",
+      "instruction": "fold and stack the t-shirts",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d505e-65e8-7f99-a4e0-9ef7c1215ffc.mp4",
+      "mp4_size_bytes": 20920956,
+      "duration_seconds": 106.033333,
+      "n_subtasks": 19,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=basket | Location=top-right of the table",
+        "Arm=right arm | Skill=pick up | Object=T-shirt | Location=basket",
+        "Arm=right arm | Skill=place | Object=T-shirt | Location=center of the table",
+        "Special=mistake",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=smooth out | Object=T-shirt | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d581f-9108-7de3-a87d-161831933396",
+      "task_folder": "put_the_credit_cards_into_the_card_holder",
+      "task_name": "put_the_credit_cards_into_the_card_holder",
+      "instruction": "put the credit cards into the card holder",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d581f-9108-7de3-a87d-161831933396.mp4",
+      "mp4_size_bytes": 30072110,
+      "duration_seconds": 167.866667,
+      "n_subtasks": 23,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=both arms | Skill=move | Object=storage box | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=card holder | Location=center of the table",
+        "Arm=right arm | Skill=open | Object=button | Location=card holder",
+        "Arm=left arm | Skill=place | Object=card holder | Location=center of the table",
+        "Special=mistake",
+        "Arm=both arms | Skill=open | Object=card holder | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d594f-1c10-708e-b060-0dc831e02dd5",
+      "task_folder": "folding_an_inside_out_t_shirt",
+      "task_name": "folding_an_inside-out_t-shirt",
+      "instruction": "folding an inside-out t-shirt",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d594f-1c10-708e-b060-0dc831e02dd5.mp4",
+      "mp4_size_bytes": 36716267,
+      "duration_seconds": 163.166667,
+      "n_subtasks": 22,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=basket | Location=top-right of the table",
+        "Arm=right arm | Skill=pick up | Object=T-shirt | Location=basket",
+        "Arm=right arm | Skill=place | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=turn over | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5952-15c8-786c-afa2-f6e91f51a4ee",
+      "task_folder": "folding_an_inside_out_t_shirt",
+      "task_name": "folding_an_inside-out_t-shirt",
+      "instruction": "folding an inside-out t-shirt",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5952-15c8-786c-afa2-f6e91f51a4ee.mp4",
+      "mp4_size_bytes": 34979553,
+      "duration_seconds": 156.466667,
+      "n_subtasks": 22,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=basket | Location=top-right of the table",
+        "Arm=right arm | Skill=pick up | Object=T-shirt | Location=basket",
+        "Arm=right arm | Skill=place | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=turn over | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5a09-dca8-7b5f-bbcc-8d6510b92e14",
+      "task_folder": "fold_and_stack_the_t_shirts",
+      "task_name": "fold_and_stack_the_t-shirts",
+      "instruction": "fold and stack the t-shirts",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5a09-dca8-7b5f-bbcc-8d6510b92e14.mp4",
+      "mp4_size_bytes": 20355871,
+      "duration_seconds": 85.533333,
+      "n_subtasks": 30,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=basket | Location=top-center of the table",
+        "Arm=right arm | Skill=pick up | Object=T-shirt | Location=basket",
+        "Arm=right arm | Skill=place | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=flatten out | Object=T-shirt | Location=center of the table",
+        "Arm=both arms | Skill=move | Object=T-shirt | Location=center of the table",
+        "Arm=right arm | Skill=move | Object=basket | Location=top-center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5a49-d790-7051-86c8-2fc03263cbac",
+      "task_folder": "untangle_the_cables",
+      "task_name": "untangle_the_cables",
+      "instruction": "untangle the cables",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5a49-d790-7051-86c8-2fc03263cbac.mp4",
+      "mp4_size_bytes": 19934937,
+      "duration_seconds": 99.133333,
+      "n_subtasks": 24,
+      "n_special_subtasks": 4,
+      "subtask_preview": [
+        "Arm=both arms | Skill=untie | Object=cable | Location=cable",
+        "Arm=right arm | Skill=place | Object=cable | Location=container",
+        "Arm=both arms | Skill=untie | Object=cable | Location=cable",
+        "Arm=right arm | Skill=place | Object=cable | Location=container",
+        "Special=mistake",
+        "Arm=both arms | Skill=untie | Object=cable | Location=cable"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5a4c-38f0-79c0-8cc6-3dec9741bc74",
+      "task_folder": "untangle_the_cables",
+      "task_name": "untangle_the_cables",
+      "instruction": "untangle the cables",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5a4c-38f0-79c0-8cc6-3dec9741bc74.mp4",
+      "mp4_size_bytes": 21571765,
+      "duration_seconds": 104.233333,
+      "n_subtasks": 26,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=pick up | Object=cable | Location=center of the table",
+        "Arm=right arm | Skill=move | Object=cable | Location=center of the table",
+        "Arm=both arms | Skill=untie | Object=cable | Location=cable",
+        "Arm=right arm | Skill=place | Object=cable | Location=container",
+        "Arm=both arms | Skill=untie | Object=cable | Location=cable",
+        "Arm=left arm | Skill=place | Object=cable | Location=container"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5a99-fb30-7036-8af5-6a87325dc656",
+      "task_folder": "using_a_key",
+      "task_name": "using_a_key",
+      "instruction": "using a key",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5a99-fb30-7036-8af5-6a87325dc656.mp4",
+      "mp4_size_bytes": 18642137,
+      "duration_seconds": 108.7,
+      "n_subtasks": 16,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=key | Location=center of the table",
+        "Arm=left arm | Skill=move | Object=box | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=lock | Location=box",
+        "Special=mistake",
+        "Arm=right arm | Skill=pick up | Object=key | Location=center of the table",
+        "Arm=left arm | Skill=place | Object=lock | Location=box"
+      ]
+    },
+    {
+      "episode_id": "episode_019d5aa4-99f0-740c-a95d-3403af5c7b73",
+      "task_folder": "using_a_key",
+      "task_name": "using_a_key",
+      "instruction": "using a key",
+      "source_dataset": "perf_dexcin_20260407",
+      "mp4_filename": "episode_019d5aa4-99f0-740c-a95d-3403af5c7b73.mp4",
+      "mp4_size_bytes": 11657563,
+      "duration_seconds": 70.633333,
+      "n_subtasks": 10,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=key | Location=bottom-center of the table",
+        "Arm=left arm | Skill=pick up | Object=lock | Location=box",
+        "Arm=right arm | Skill=rotate | Object=box | Location=center of the table",
+        "Arm=right arm | Skill=unlock | Object=lock | Location=box",
+        "Arm=right arm | Skill=place | Object=lock | Location=box",
+        "Arm=both arms | Skill=rotate | Object=box | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d65fe-39c8-7090-be06-4d0b53b7387b",
+      "task_folder": "insert_the_wireless_bluetooth_earbuds_into_the_charging_case",
+      "task_name": "insert_the_wireless_bluetooth_earbuds_into_the_charging_case",
+      "instruction": "insert the wireless bluetooth earbuds into the charging case",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d65fe-39c8-7090-be06-4d0b53b7387b.mp4",
+      "mp4_size_bytes": 22696391,
+      "duration_seconds": 146.366667,
+      "n_subtasks": 30,
+      "n_special_subtasks": 2,
+      "subtask_preview": [
+        "Arm=right arm | Skill=move | Object=charging case | Location=center of the table",
+        "Arm=left arm | Skill=pick up | Object=charging case | Location=center of the table",
+        "Arm=right arm | Skill=open | Object=charging case",
+        "Arm=right arm | Skill=pick up | Object=a wireless bluetooth earbud | Location=center of the table",
+        "Arm=right arm | Skill=insert | Object=a wireless bluetooth earbud | Location=charging case",
+        "Arm=right arm | Skill=move | Object=a wireless bluetooth earbud | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d66b1-1ea8-719c-8db7-e3ad5be09741",
+      "task_folder": "take_credit_cards_out_of_the_card_holder",
+      "task_name": "take_credit_cards_out_of_the_card_holder",
+      "instruction": "take credit cards out of the card holder",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d66b1-1ea8-719c-8db7-e3ad5be09741.mp4",
+      "mp4_size_bytes": 25059894,
+      "duration_seconds": 157.266667,
+      "n_subtasks": 20,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=open | Object=button | Location=card holder",
+        "Arm=both arms | Skill=open | Object=card holder | Location=center of the table",
+        "Arm=right arm | Skill=take out | Object=credit card | Location=card slot",
+        "Arm=left arm | Skill=place | Object=credit card | Location=storage box",
+        "Arm=right arm | Skill=flip open | Object=card slot | Location=card holder",
+        "Arm=right arm | Skill=take out | Object=credit card | Location=card slot"
+      ]
+    },
+    {
+      "episode_id": "episode_019d66b4-3f70-7815-be9d-98a6496ae0a3",
+      "task_folder": "take_credit_cards_out_of_the_card_holder",
+      "task_name": "take_credit_cards_out_of_the_card_holder",
+      "instruction": "take credit cards out of the card holder",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d66b4-3f70-7815-be9d-98a6496ae0a3.mp4",
+      "mp4_size_bytes": 21081069,
+      "duration_seconds": 133.066667,
+      "n_subtasks": 20,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=right arm | Skill=open | Object=button | Location=card holder",
+        "Arm=both arms | Skill=open | Object=card holder | Location=center of the table",
+        "Arm=right arm | Skill=take out | Object=credit card | Location=card slot",
+        "Arm=right arm | Skill=place | Object=credit card | Location=storage box",
+        "Arm=right arm | Skill=flip open | Object=card slot | Location=card holder",
+        "Arm=right arm | Skill=take out | Object=credit card | Location=card slot"
+      ]
+    },
+    {
+      "episode_id": "episode_019d671c-2518-706b-992f-9e0d59ccd449",
+      "task_folder": "put_the_keys_on_the_keyring",
+      "task_name": "put_the_keys_on_the_keyring",
+      "instruction": "put the keys on the keyring",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d671c-2518-706b-992f-9e0d59ccd449.mp4",
+      "mp4_size_bytes": 12150193,
+      "duration_seconds": 67.333333,
+      "n_subtasks": 9,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=right arm | Skill=pick up | Object=keyring | Location=center of the table",
+        "Arm=both arms | Skill=adjust | Object=keyring",
+        "Special=mistake",
+        "Arm=right arm | Skill=move | Object=key | Location=center of the table",
+        "Arm=right arm | Skill=pick up | Object=key | Location=center of the table",
+        "Arm=both arms | Skill=insert | Object=key | Location=keyring"
+      ]
+    },
+    {
+      "episode_id": "episode_019d6863-d7b8-727f-922b-4b869d1e5f93",
+      "task_folder": "fold_the_paper_box",
+      "task_name": "fold_the_paper_box",
+      "instruction": "fold the paper box",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d6863-d7b8-727f-922b-4b869d1e5f93.mp4",
+      "mp4_size_bytes": 18379028,
+      "duration_seconds": 110.133333,
+      "n_subtasks": 17,
+      "n_special_subtasks": 3,
+      "subtask_preview": [
+        "Arm=left arm | Skill=move | Object=paper box | Location=center of the table",
+        "Special=mistake",
+        "Arm=right arm | Skill=turn over | Object=paper box | Location=center of the table",
+        "Arm=right arm | Skill=adjust | Object=paper box | Location=center of the table",
+        "Arm=both arms | Skill=fold | Object=paper box | Location=center of the table",
+        "Arm=right arm | Skill=adjust | Object=paper box | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d686e-d820-7394-a010-323d1a601fb1",
+      "task_folder": "fold_the_paper_box",
+      "task_name": "fold_the_paper_box",
+      "instruction": "fold the paper box",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d686e-d820-7394-a010-323d1a601fb1.mp4",
+      "mp4_size_bytes": 21892840,
+      "duration_seconds": 128.966667,
+      "n_subtasks": 11,
+      "n_special_subtasks": 1,
+      "subtask_preview": [
+        "Arm=left arm | Skill=move | Object=paper box | Location=center of the table",
+        "Arm=right arm | Skill=turn over | Object=paper box | Location=center of the table",
+        "Arm=both arms | Skill=fold | Object=paper box | Location=center of the table",
+        "Arm=left arm | Skill=fold | Object=paper box | Location=center of the table",
+        "Arm=left arm | Skill=adjust | Object=paper box | Location=center of the table",
+        "Arm=right arm | Skill=fold | Object=paper box | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d6dc1-ca30-7241-a24a-3a314072bb42",
+      "task_folder": "pack_a_student_bag",
+      "task_name": "pack_a_student_bag",
+      "instruction": "pack a student bag",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d6dc1-ca30-7241-a24a-3a314072bb42.mp4",
+      "mp4_size_bytes": 33868904,
+      "duration_seconds": 167.333333,
+      "n_subtasks": 31,
+      "n_special_subtasks": 5,
+      "subtask_preview": [
+        "Arm=both arms | Skill=unzip | Object=student bag | Location=center of the table",
+        "Special=mistake",
+        "Arm=right arm | Skill=move | Object=book | Location=center of the table",
+        "Arm=right arm | Skill=pick up | Object=book | Location=center of the table",
+        "Arm=both arms | Skill=adjust | Object=book | Location=student bag",
+        "Arm=left arm | Skill=open | Object=student bag | Location=center of the table"
+      ]
+    },
+    {
+      "episode_id": "episode_019d6dc8-2ee8-759d-8dd4-0e56595887b4",
+      "task_folder": "pack_a_student_bag",
+      "task_name": "pack_a_student_bag",
+      "instruction": "pack a student bag",
+      "source_dataset": "perf_dexcin_20260409_224",
+      "mp4_filename": "episode_019d6dc8-2ee8-759d-8dd4-0e56595887b4.mp4",
+      "mp4_size_bytes": 24889741,
+      "duration_seconds": 124.066667,
+      "n_subtasks": 25,
+      "n_special_subtasks": 4,
+      "subtask_preview": [
+        "Arm=both arms | Skill=unzip | Object=student bag | Location=center of the table",
+        "Arm=right arm | Skill=pick up | Object=book | Location=bottom-center of the table",
+        "Special=mistake",
+        "Arm=left arm | Skill=open | Object=student bag | Location=center of the table",
+        "Arm=right arm | Skill=place | Object=book | Location=student bag",
+        "Arm=left arm | Skill=close | Object=student bag | Location=center of the table"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>abc pilot annotation — rendered episodes</title>
+    <style>
+        :root {
+            --bg: #faf8f3;
+            --card: #ffffff;
+            --border: #d9d3c4;
+            --ink: #222;
+            --muted: #666;
+            --accent: #2d6cdf;
+            --chip: #eae4d4;
+            --chip-strong: #c9bfa3;
+            --special: #f3c76b;
+            --ok: #8ec98e;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 14px;
+            line-height: 1.45;
+        }
+        header {
+            padding: 18px 24px 12px;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        header h1 {
+            margin: 0 0 4px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        header .meta { color: var(--muted); font-size: 13px; }
+        .controls {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .controls input[type="search"] {
+            flex: 1 1 280px;
+            min-width: 180px;
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .controls select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: #fff;
+            font-size: 14px;
+        }
+        .controls .count {
+            color: var(--muted);
+            font-size: 13px;
+            margin-left: auto;
+        }
+        #config-banner {
+            padding: 8px 24px;
+            background: #fff2d0;
+            border-bottom: 1px solid var(--chip-strong);
+            color: #6a4a00;
+            font-size: 13px;
+            display: none;
+        }
+        #config-banner.show { display: block; }
+        main {
+            padding: 16px 24px 32px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            overflow: hidden;
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        .card .subtitle {
+            font-size: 12px;
+            color: var(--muted);
+            word-break: break-all;
+        }
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: var(--chip);
+            color: #4a3d1a;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .badge.dataset { background: #dce9f7; color: #1a3d66; }
+        .badge.subtasks { background: #e0efdd; color: #1f5a2a; }
+        .badge.special { background: var(--special); color: #5a3a00; }
+        .badge.duration { background: var(--chip); color: #4a3d1a; }
+        .video-wrap {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: #111;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #111;
+        }
+        .subtask-preview {
+            font-size: 12px;
+            color: var(--muted);
+            background: #f6f2e7;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px 8px;
+        }
+        .subtask-preview summary {
+            cursor: pointer;
+            font-weight: 500;
+            color: #4a3d1a;
+        }
+        .subtask-preview ul {
+            margin: 6px 0 0 0;
+            padding-left: 18px;
+        }
+        .subtask-preview li {
+            margin: 2px 0;
+        }
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+        }
+        a.dl-link {
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+        }
+        a.dl-link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<!-- Edit these 3 values after you create the repo + release -->
+<script>
+const CONFIG = {
+    repoOwner: "OWNER",
+    repoName: "REPO",
+    releaseTag: "v1",
+};
+</script>
+
+<header>
+    <h1>abc pilot annotation — rendered episodes</h1>
+    <div class="meta">
+        31 rendered videos from <code>abc_pilot_sample_annotation_20260416</code>
+        (cameras + state/action + per-frame subtask labels).
+    </div>
+    <div class="controls">
+        <input type="search" id="q" placeholder="Search by task name, instruction, subtask, episode id…" autofocus />
+        <select id="dataset-filter">
+            <option value="">all datasets</option>
+        </select>
+        <span class="count" id="count"></span>
+    </div>
+</header>
+
+<div id="config-banner">
+    ⚠️ <code>CONFIG</code> in <code>index.html</code> is still set to placeholder values
+    (<code>OWNER / REPO / v1</code>). Edit the <code>CONFIG</code> block at the top of
+    <code>index.html</code> with your actual GitHub owner, repo name, and release tag,
+    then commit &amp; push.
+</div>
+
+<main id="grid"></main>
+
+<script>
+async function main() {
+    // Config sanity check
+    if (CONFIG.repoOwner === "OWNER" || CONFIG.repoName === "REPO") {
+        document.getElementById("config-banner").classList.add("show");
+    }
+
+    const res = await fetch("episodes.json", { cache: "no-cache" });
+    const data = await res.json();
+
+    // Build dataset filter
+    const datasets = [...new Set(data.episodes.map(e => e.source_dataset))].sort();
+    const dsSel = document.getElementById("dataset-filter");
+    for (const d of datasets) {
+        const opt = document.createElement("option");
+        opt.value = d;
+        opt.textContent = d;
+        dsSel.appendChild(opt);
+    }
+
+    const grid = document.getElementById("grid");
+    const count = document.getElementById("count");
+    const q = document.getElementById("q");
+
+    function fmtDuration(s) {
+        if (s == null) return "—";
+        const m = Math.floor(s / 60);
+        const sec = Math.round(s % 60);
+        return `${m}:${String(sec).padStart(2, "0")}`;
+    }
+    function fmtSize(bytes) {
+        const mb = bytes / (1024 * 1024);
+        return mb < 1000 ? `${mb.toFixed(1)} MB` : `${(mb / 1024).toFixed(2)} GB`;
+    }
+    function videoUrl(filename) {
+        return `https://github.com/${CONFIG.repoOwner}/${CONFIG.repoName}` +
+               `/releases/download/${CONFIG.releaseTag}/${filename}`;
+    }
+
+    function render() {
+        const needle = q.value.trim().toLowerCase();
+        const dsFilter = dsSel.value;
+        grid.innerHTML = "";
+
+        const filtered = data.episodes.filter(e => {
+            if (dsFilter && e.source_dataset !== dsFilter) return false;
+            if (!needle) return true;
+            const hay = [
+                e.instruction, e.task_name, e.task_folder, e.episode_id,
+                e.source_dataset, ...(e.subtask_preview || [])
+            ].join(" ").toLowerCase();
+            return hay.includes(needle);
+        });
+
+        count.textContent = `${filtered.length} / ${data.episodes.length} episodes`;
+        if (filtered.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "empty";
+            empty.textContent = "no episodes match the current filter.";
+            grid.appendChild(empty);
+            return;
+        }
+
+        for (const e of filtered) {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const url = videoUrl(e.mp4_filename);
+
+            const title = document.createElement("h2");
+            title.textContent = e.instruction || e.task_name;
+            card.appendChild(title);
+
+            const sub = document.createElement("div");
+            sub.className = "subtitle";
+            sub.textContent = e.episode_id;
+            card.appendChild(sub);
+
+            const badges = document.createElement("div");
+            badges.className = "badges";
+            badges.appendChild(makeBadge("dataset", e.source_dataset));
+            badges.appendChild(makeBadge("duration", fmtDuration(e.duration_seconds)));
+            badges.appendChild(makeBadge("subtasks", `${e.n_subtasks} subtasks`));
+            if (e.n_special_subtasks > 0) {
+                badges.appendChild(makeBadge("special", `${e.n_special_subtasks} special`));
+            }
+            badges.appendChild(makeBadge("", fmtSize(e.mp4_size_bytes)));
+            card.appendChild(badges);
+
+            const vwrap = document.createElement("div");
+            vwrap.className = "video-wrap";
+            const v = document.createElement("video");
+            v.controls = true;
+            v.preload = "none";
+            v.src = url;
+            vwrap.appendChild(v);
+            card.appendChild(vwrap);
+
+            if (e.subtask_preview && e.subtask_preview.length) {
+                const det = document.createElement("details");
+                det.className = "subtask-preview";
+                const summary = document.createElement("summary");
+                summary.textContent =
+                    `first ${Math.min(6, e.n_subtasks)} of ${e.n_subtasks} subtasks`;
+                det.appendChild(summary);
+                const ul = document.createElement("ul");
+                for (const s of e.subtask_preview) {
+                    const li = document.createElement("li");
+                    li.textContent = s;
+                    ul.appendChild(li);
+                }
+                det.appendChild(ul);
+                card.appendChild(det);
+            }
+
+            const dl = document.createElement("a");
+            dl.className = "dl-link";
+            dl.href = url;
+            dl.textContent = "open video directly ↗";
+            dl.target = "_blank";
+            dl.rel = "noopener";
+            card.appendChild(dl);
+
+            grid.appendChild(card);
+        }
+    }
+
+    function makeBadge(kind, text) {
+        const b = document.createElement("span");
+        b.className = "badge" + (kind ? " " + kind : "");
+        b.textContent = text;
+        return b;
+    }
+
+    q.addEventListener("input", render);
+    dsSel.addEventListener("change", render);
+    render();
+}
+main().catch(err => {
+    document.getElementById("grid").innerHTML =
+        `<div class="empty">failed to load episodes.json: ${err}</div>`;
+});
+</script>
+
+</body>
+</html>
