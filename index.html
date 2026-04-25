@@ -76,6 +76,51 @@
             display: none;
         }
         #config-banner.show { display: block; }
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-top: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab {
+            padding: 10px 18px 9px;
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: 6px 6px 0 0;
+            background: transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: -1px;
+        }
+        .tab:hover { color: var(--ink); background: #f3eedf; }
+        .tab.active {
+            color: var(--ink);
+            background: var(--bg);
+            border-color: var(--border);
+            border-bottom-color: var(--bg);
+        }
+        .tab .tab-counts {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--muted);
+            background: var(--chip);
+            padding: 1px 7px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+        .tab.active .tab-counts {
+            background: var(--chip-strong);
+            color: #3a3320;
+        }
+        .tab.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         main {
             padding: 16px 24px 32px;
             display: grid;
@@ -256,9 +301,18 @@ const CONFIG = {
 
 <header>
     <h1>abc pilot annotation — rendered episodes</h1>
-    <div class="meta">
-        31 rendered videos from <code>abc_pilot_sample_annotation_20260416</code>
-        (cameras + state/action + per-frame subtask labels).
+    <div class="meta" id="meta-line">
+        cameras + state/action + per-frame subtask labels.
+    </div>
+    <div class="tabs" id="tabs">
+        <button class="tab" data-tab="finetuned">
+            <span>Finetuned</span>
+            <span class="tab-counts" id="counts-finetuned">…</span>
+        </button>
+        <button class="tab" data-tab="pretrained">
+            <span>Pretrained</span>
+            <span class="tab-counts" id="counts-pretrained">…</span>
+        </button>
     </div>
     <div class="controls">
         <input type="search" id="q" placeholder="Search by task name, instruction, subtask, episode id…" autofocus />
@@ -284,34 +338,78 @@ const CONFIG = {
 </div>
 
 <script>
+const TABS = {
+    finetuned: {
+        label: "Finetuned",
+        source: "episodes.json",
+        deliveryName: "abc_pilot_sample_annotation_20260416",
+        releaseTag: "v1",
+    },
+    pretrained: {
+        label: "Pretrained",
+        source: "episodes_pretrained.json",
+        deliveryName: "abc_pilot_pretraining_20260424",
+        releaseTag: "v2",
+    },
+};
+
+async function fetchTab(tabKey) {
+    try {
+        const res = await fetch(TABS[tabKey].source, { cache: "no-cache" });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch (err) {
+        return null;
+    }
+}
+
+function countTasks(data) {
+    if (!data || !data.episodes) return 0;
+    return new Set(data.episodes.map(e => e.task_folder || e.task_name)).size;
+}
+
 async function main() {
     // Config sanity check
     if (CONFIG.repoOwner === "OWNER" || CONFIG.repoName === "REPO") {
         document.getElementById("config-banner").classList.add("show");
     }
 
-    const res = await fetch("episodes.json", { cache: "no-cache" });
-    const data = await res.json();
+    // Pre-fetch both tabs to populate counts
+    const [finetuned, pretrained] = await Promise.all([
+        fetchTab("finetuned"),
+        fetchTab("pretrained"),
+    ]);
+    const tabData = { finetuned, pretrained };
 
-    // Build dataset filter
-    const datasets = [...new Set(data.episodes.map(e => e.source_dataset))].sort();
-    const dsSel = document.getElementById("dataset-filter");
-    for (const d of datasets) {
-        const opt = document.createElement("option");
-        opt.value = d;
-        opt.textContent = d;
-        dsSel.appendChild(opt);
+    function renderTabCounts(tabKey) {
+        const el = document.getElementById(`counts-${tabKey}`);
+        const d = tabData[tabKey];
+        const tabBtn = document.querySelector(`.tab[data-tab="${tabKey}"]`);
+        if (!d) {
+            el.textContent = "no data yet";
+            tabBtn.classList.add("unavailable");
+            return;
+        }
+        const nTasks = countTasks(d);
+        const nEps = d.episodes.length;
+        el.textContent = `${nTasks} tasks · ${nEps} episodes`;
     }
+    renderTabCounts("finetuned");
+    renderTabCounts("pretrained");
 
     const grid = document.getElementById("grid");
     const count = document.getElementById("count");
     const q = document.getElementById("q");
+    const dsSel = document.getElementById("dataset-filter");
+    const meta = document.getElementById("meta-line");
     const prevBtn = document.getElementById("prev-btn");
     const nextBtn = document.getElementById("next-btn");
     const pageInfo = document.getElementById("page-info");
     const PAGE_SIZE = 4;
     let currentPage = 0;
     let lastFiltered = [];
+    let activeTab = null;
+    let data = null;
 
     function fmtDuration(s) {
         if (s == null) return "—";
@@ -329,8 +427,9 @@ async function main() {
         return mb < 1000 ? `${mb.toFixed(1)} MB` : `${(mb / 1024).toFixed(2)} GB`;
     }
     function videoUrl(filename) {
+        const tag = (activeTab && TABS[activeTab].releaseTag) || CONFIG.releaseTag;
         return `https://github.com/${CONFIG.repoOwner}/${CONFIG.repoName}` +
-               `/releases/download/${CONFIG.releaseTag}/${filename}`;
+               `/releases/download/${tag}/${filename}`;
     }
 
     function filter() {
@@ -464,6 +563,39 @@ async function main() {
         return b;
     }
 
+    function selectTab(tabKey) {
+        if (activeTab === tabKey) return;
+        const d = tabData[tabKey];
+        if (!d) return;
+        activeTab = tabKey;
+        data = d;
+
+        document.querySelectorAll(".tab").forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.tab === tabKey);
+        });
+
+        // Update meta line
+        const nTasks = countTasks(d);
+        const nEps = d.episodes.length;
+        meta.innerHTML =
+            `${nEps} rendered videos across ${nTasks} tasks from ` +
+            `<code>${TABS[tabKey].deliveryName}</code> ` +
+            `(cameras + state/action + per-frame subtask labels).`;
+
+        // Repopulate dataset filter
+        dsSel.innerHTML = '<option value="">all datasets</option>';
+        const datasets = [...new Set(d.episodes.map(e => e.source_dataset))].sort();
+        for (const ds of datasets) {
+            const opt = document.createElement("option");
+            opt.value = ds;
+            opt.textContent = ds;
+            dsSel.appendChild(opt);
+        }
+
+        currentPage = 0;
+        filter();
+    }
+
     q.addEventListener("input", filter);
     dsSel.addEventListener("change", filter);
     prevBtn.addEventListener("click", () => { currentPage--; renderPage(); window.scrollTo(0, 0); });
@@ -473,7 +605,18 @@ async function main() {
         if (ev.key === "ArrowLeft" && !prevBtn.disabled) { currentPage--; renderPage(); window.scrollTo(0, 0); }
         if (ev.key === "ArrowRight" && !nextBtn.disabled) { currentPage++; renderPage(); window.scrollTo(0, 0); }
     });
-    filter();
+    document.querySelectorAll(".tab").forEach(btn => {
+        btn.addEventListener("click", () => selectTab(btn.dataset.tab));
+    });
+
+    // Pick initial tab: prefer finetuned if available, else pretrained
+    const initialTab = tabData.finetuned ? "finetuned" :
+                        tabData.pretrained ? "pretrained" : null;
+    if (initialTab) {
+        selectTab(initialTab);
+    } else {
+        grid.innerHTML = `<div class="empty">no episode data found. expected episodes.json or episodes_pretrained.json.</div>`;
+    }
 }
 main().catch(err => {
     document.getElementById("grid").innerHTML =

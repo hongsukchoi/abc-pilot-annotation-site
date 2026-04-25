@@ -1,0 +1,16 @@
+.DS_Store
+.venv/
+__pycache__/
+
+# Bulk data dirs — tracked via GitHub Releases, not git
+pilot_data/
+pilot_data_pretrained/
+pilot_renders/
+pilot_renders_pretrained/
+pilot_renders_old/
+pilot_rendering_bundle.zip
+
+# Generated / transient artifacts
+pilot_manifest.json
+pilot_manifest_pretrained.json
+episodes_list.tsv

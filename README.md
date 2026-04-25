@@ -1,22 +1,36 @@
 # abc-pilot-annotation rendered episodes — static site
 
-Browsable gallery of the 31 rendered videos from the
-`abc_pilot_sample_annotation_20260416` delivery. Videos themselves are hosted
-as assets on a GitHub **Release** (not in git), and the static HTML below
-references them by URL.
+Browsable gallery of rendered episodes from two annotation deliveries:
+
+- **Finetuned tab** — 31 episodes from `abc_pilot_sample_annotation_20260416`
+  (release `v1`).
+- **Pretrained tab** — episodes from `abc_pilot_pretraining_20260424`
+  (release `v2`).
+
+Videos themselves are hosted as assets on GitHub **Releases** (not in git);
+the static HTML references them by URL. Each tab shows
+`<n> tasks · <m> episodes` next to its name so you can see the size at a
+glance before clicking.
 
 ## What this directory contains
 
 ```
 pilot_site/
-  index.html                 # the site (vanilla HTML + JS, no build step)
-  episodes.json              # metadata for all 31 episodes
-  build_episodes_json.py     # regenerate episodes.json from pilot_data/ + pilot_renders/
-  README.md                  # this file
+  index.html                  # the site (vanilla HTML + JS, no build step)
+  episodes.json               # metadata for the finetuned tab (31 episodes)
+  episodes_pretrained.json    # metadata for the pretrained tab
+  build_episodes_json.py      # regenerate <episodes_*>.json from a bundle + renders pair
+  scripts/                    # data pipeline (manifest → bundles → renders)
+    build_pilot_manifest.py
+    materialize_pilot_bundles.py
+    extract_subtask_annotations.py
+    dataset_episode_to_video.py
+  README.md                   # this file
 ```
 
-The 31 mp4s live in a sibling directory (`pilot_renders/`) and are **uploaded
-to a GitHub Release**, not committed to the repo.
+The mp4s live in sibling directories (`pilot_renders/` for finetuned,
+`pilot_renders_pretrained/` for pretrained) and are **uploaded to GitHub
+Releases**, not committed to the repo.
 
 ## Deployment (once)
 
@@ -105,13 +119,60 @@ Anonymous visitors will see broken/404 videos. Options if that's a problem:
 If `pilot_data/` or `pilot_renders/` changes upstream, re-run:
 
 ```bash
+# finetuned tab
 uv run python pilot_site/build_episodes_json.py \
     --bundle-root pilot_data \
     --render-root pilot_renders \
     --output pilot_site/episodes.json
+
+# pretrained tab
+uv run python pilot_site/build_episodes_json.py \
+    --bundle-root pilot_data_pretrained \
+    --render-root pilot_renders_pretrained \
+    --output pilot_site/episodes_pretrained.json
 ```
 
 Then `git add` + commit + push the updated JSON.
+
+## Adding the pretrained tab from scratch
+
+The static site's pretrained tab pulls from `episodes_pretrained.json` and
+videos from release `v2`. To regenerate end-to-end:
+
+```bash
+# 1. Cross-reference annotation mcaps with raw YAM datasets
+AWS_PROFILE=far-compute python scripts/build_pilot_manifest.py \
+    --preset pretrained \
+    --annotation-profile xdof-bair-abc \
+    --output pilot_manifest_pretrained.json
+
+# 2. Materialize per-episode bundles (downloads cameras + extracts mcap labels)
+AWS_PROFILE=far-compute python scripts/materialize_pilot_bundles.py \
+    --manifest pilot_manifest_pretrained.json \
+    --bundle-root pilot_data_pretrained \
+    --annotation-profile xdof-bair-abc \
+    --skip-existing
+
+# 3. Render mp4s with the same banner layout as finetuned
+python scripts/dataset_episode_to_video.py \
+    --bundle-root pilot_data_pretrained \
+    --output-root pilot_renders_pretrained \
+    --layout simple
+
+# 4. Generate episodes_pretrained.json
+python build_episodes_json.py \
+    --bundle-root pilot_data_pretrained \
+    --render-root pilot_renders_pretrained \
+    --output episodes_pretrained.json
+
+# 5. Upload to release v2
+gh release create v2 \
+    --repo <owner>/abc-pilot-annotation-site \
+    --title "Pilot rendered episodes v2 — pretraining" \
+    --notes "Rendered mp4s from abc_pilot_pretraining_20260424."
+gh release upload v2 pilot_renders_pretrained/*.mp4 \
+    --repo <owner>/abc-pilot-annotation-site
+```
 
 ## Local preview (before pushing)
 
